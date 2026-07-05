@@ -1,13 +1,21 @@
-version: '3.7'
-
 services:
 
-  swagger:
+  swagger_students:
     image: swaggerapi/swagger-ui
-    container_name: polito_api_swagger
+    container_name: polito_api_students_swagger
     environment:
       SWAGGER_JSON: '/openapi.yaml'
     ports:
-      - '8080:8080'
+      - $HOST_PORT_STUDENTS:8080
     volumes:
-      - ./openapi.yaml:/openapi.yaml
+      - ./dist/clients/student/openapi.yaml:/openapi.yaml
+
+  swagger_faculty:
+    image: swaggerapi/swagger-ui
+    container_name: polito_api_faculty_swagger
+    environment:
+      SWAGGER_JSON: '/openapi.yaml'
+    ports:
+      - $HOST_PORT_FACULTY:8080
+    volumes:
+      - ./dist/clients/faculty/openapi.yaml:/openapi.yaml
