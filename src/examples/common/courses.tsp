@@ -105,8 +105,10 @@ const _ex_courses_list = #{
           teacherName: "Stefano Quer",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#2563EB", icon: "faCode", label: "SDP" },
           modules: #[
             #{
               id: 251008,
@@ -115,10 +117,14 @@ const _ex_courses_list = #{
               teachingPeriod: "2-2",
               teacherId: 3001,
               teacherName: "Mario Rossi",
-              previousEditions: #[#{ id: 251005, year: "2024" }],
+              previousEditions: #[
+                #{ id: 251005, name: "Programming Module A", year: "2024" }
+              ],
               isOverBooking: false,
+              category: "I",
               enrollmentRole: CourseEnrollmentRole.student,
               year: "2025",
+              style: #{ color: "#4F46E5", icon: "faCode", label: "SDP-A" },
             },
             #{
               id: 251009,
@@ -127,10 +133,14 @@ const _ex_courses_list = #{
               teachingPeriod: "2-2",
               teacherId: 3002,
               teacherName: "Giovanni Verdi",
-              previousEditions: #[#{ id: 251006, year: "2024" }],
+              previousEditions: #[
+                #{ id: 251006, name: "Programming Module B", year: "2024" }
+              ],
               isOverBooking: false,
+              category: "I",
               enrollmentRole: CourseEnrollmentRole.student,
               year: "2025",
+              style: #{ color: "#7C3AED", icon: "faCode", label: "SDP-B" },
             }
           ],
         },
@@ -144,8 +154,10 @@ const _ex_courses_list = #{
           teacherName: "Giovanni Malnati",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#0891B2", icon: "faGlobe", label: "WA2" },
           modules: null,
         },
         #{
@@ -158,8 +170,10 @@ const _ex_courses_list = #{
           teacherName: "Riccardo Sisto",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#16A34A", icon: "faShieldHalved", label: "SVT" },
           modules: null,
         },
         #{
@@ -172,8 +186,10 @@ const _ex_courses_list = #{
           teacherName: "Antonio Lioy",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#DC2626", icon: "faServer", label: "ISS" },
           modules: null,
         },
         #{
@@ -186,8 +202,10 @@ const _ex_courses_list = #{
           teacherName: "Antonio Lioy",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#EA580C", icon: "faNetworkWired", label: "CYB" },
           modules: null,
         },
         #{
@@ -200,8 +218,10 @@ const _ex_courses_list = #{
           teacherName: "Edgar Ernesto Sanchez Sanchez",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#D97706", icon: "faMicrochip", label: "ASE" },
           modules: null,
         },
         #{
@@ -214,8 +234,10 @@ const _ex_courses_list = #{
           teacherName: "Luigi De Russis",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#DB2777", icon: "faComputer", label: "HCI" },
           modules: null,
         },
         #{
@@ -228,8 +250,10 @@ const _ex_courses_list = #{
           teacherName: "Antonio Jose Di Scala",
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: #{ color: "#0D9488", icon: "faKey", label: "CRY" },
           modules: null,
         },
         #{
@@ -242,8 +266,10 @@ const _ex_courses_list = #{
           teacherName: null,
           previousEditions: #[],
           isOverBooking: false,
+          category: "I",
           enrollmentRole: CourseEnrollmentRole.student,
           year: "2025",
+          style: null,
           modules: null,
         }
       ],
@@ -1199,8 +1225,10 @@ const _ex_course_module = #{
   teacherId: 3001,
   teacherName: "Mario Rossi",
   isOverBooking: false,
+  category: "I",
   enrollmentRole: CourseEnrollmentRole.student,
   year: "2025",
+  style: #{ color: "#4F46E5", icon: "faCode", label: "PMA" },
 };
 
 const _ex_getCourseGuide_resp = #{

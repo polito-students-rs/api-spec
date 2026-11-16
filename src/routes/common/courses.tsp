@@ -14,6 +14,9 @@ model CourseModuleEdition {
   @example("2021")
   year: string;
 
+  @example("Fisica II")
+  name: string;
+
   @example(244577)
   id: integer;
 }
@@ -58,17 +61,28 @@ model CourseModule {
   @example(false)
   isOverBooking: boolean;
 
+  /**
+   * Defines the course type and whether the course page should be opened
+   * when no instructor is assigned to the course.
+   */
+  @example("I")
+  category: string;
+
   /** Type of enrollment of the user for this course */
   @example(CourseEnrollmentRole.student)
   enrollmentRole: CourseEnrollmentRole;
 
   @example("2022")
   year: string;
+
+  /** Custom icon, color and label (acronym) chosen by the user for this course. `null` if never set */
+  @example(#{ color: "#2563EB", icon: "faCode", label: "SDP" })
+  style: Symbol | null;
 }
 
 model CourseModuleOverview extends CourseModule {
   /** Previous editions of this course that were part of the student's PSP */
-  @example(#[#{ id: 244577, year: "2021" }])
+  @example(#[#{ id: 244577, name: "Fisica I", year: "2021" }])
   previousEditions: CourseModuleEdition[];
 }
 
@@ -98,15 +112,12 @@ model Course extends CourseModule {
     id?: string;
   }[] | null;
 
-  @example(#[#{ id: 244577, year: "2021" }])
+  @example(#[#{ id: 244577, name: "Fisica I", year: "2021" }])
   vcPreviousYears: CourseModuleEdition[];
 
   /** Other editions/courses to be included in virtual classrooms */
   vcOtherCourses: {
     ...CourseModuleEdition;
-
-    @example("Fisica II")
-    name: string;
   }[];
 
   notifications: {
@@ -267,11 +278,16 @@ model CoursePreferencesRequest {
     @example(true)
     lectures?: boolean;
   };
+
+  /** Custom icon, color and label (acronym) for the course, `null` to reset it */
+  @example(#{ color: "#2563EB", icon: "faCode", label: "SDP" })
+  style?: Symbol | null;
 }
 
 model UpdateAssignmentRequest {
-  delivery?: boolean;
-  state?: "submitted" | "uploaded";
+  /** Set to a date to withdraw the assignment, `null` to restore it */
+  @example(utcDateTime.fromISO("2022-09-03T10:00:00Z"))
+  deletedAt: utcDateTime | null;
 }
 
 @tag("Courses")
@@ -316,6 +332,9 @@ interface Courses {
     @multipartBody body: CourseAssignmentUpload,
   ): NoContentResponse | BaseErrors;
 
+  /**
+   * Withdraws the assignment if `deletedAt` is set to a date, restores it if `deletedAt` is `null`.
+   */
   @route("/{courseId}/assignments/{assignmentId}")
   @patch(#{ implicitOptionality: false })
   @summary("Update assignment | Aggiorna elaborato")

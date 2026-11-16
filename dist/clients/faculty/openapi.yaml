@@ -1031,6 +1031,7 @@ paths:
     patch:
       operationId: Courses_updateAssignment
       summary: Update assignment | Aggiorna elaborato
+      description: Withdraws the assignment if `deletedAt` is set to a date, restores it if `deletedAt` is `null`.
       parameters:
         - name: courseId
           in: path
@@ -2417,8 +2418,13 @@ paths:
                     teacherName: Stefano Quer
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#2563EB'
+                      icon: faCode
+                      label: SDP
                     modules:
                       - id: 251008
                         name: Programming Module A
@@ -2428,10 +2434,16 @@ paths:
                         teacherName: Mario Rossi
                         previousEditions:
                           - id: 251005
+                            name: Programming Module A
                             year: '2024'
                         isOverBooking: false
+                        category: I
                         enrollmentRole: student
                         year: '2025'
+                        style:
+                          color: '#4F46E5'
+                          icon: faCode
+                          label: SDP-A
                       - id: 251009
                         name: Programming Module B
                         shortcode: 01NYHOV
@@ -2440,10 +2452,16 @@ paths:
                         teacherName: Giovanni Verdi
                         previousEditions:
                           - id: 251006
+                            name: Programming Module B
                             year: '2024'
                         isOverBooking: false
+                        category: I
                         enrollmentRole: student
                         year: '2025'
+                        style:
+                          color: '#7C3AED'
+                          icon: faCode
+                          label: SDP-B
                   - id: 252121
                     name: Web Applications II
                     shortcode: 01TXSOV
@@ -2453,8 +2471,13 @@ paths:
                     teacherName: Giovanni Malnati
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#0891B2'
+                      icon: faGlobe
+                      label: WA2
                     modules: null
                   - id: 252126
                     name: Security verification and testing
@@ -2465,8 +2488,13 @@ paths:
                     teacherName: Riccardo Sisto
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#16A34A'
+                      icon: faShieldHalved
+                      label: SVT
                     modules: null
                   - id: 252138
                     name: Information systems security
@@ -2477,8 +2505,13 @@ paths:
                     teacherName: Antonio Lioy
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#DC2626'
+                      icon: faServer
+                      label: ISS
                     modules: null
                   - id: 252258
                     name: Cybersecurity
@@ -2489,8 +2522,13 @@ paths:
                     teacherName: Antonio Lioy
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#EA580C'
+                      icon: faNetworkWired
+                      label: CYB
                     modules: null
                   - id: 252788
                     name: Architetture dei sistemi di elaborazione
@@ -2501,8 +2539,13 @@ paths:
                     teacherName: Edgar Ernesto Sanchez Sanchez
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#D97706'
+                      icon: faMicrochip
+                      label: ASE
                     modules: null
                   - id: 252842
                     name: Human Computer Interaction
@@ -2513,8 +2556,13 @@ paths:
                     teacherName: Luigi De Russis
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#DB2777'
+                      icon: faComputer
+                      label: HCI
                     modules: null
                   - id: 253378
                     name: Cryptography
@@ -2525,8 +2573,13 @@ paths:
                     teacherName: Antonio Jose Di Scala
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style:
+                      color: '#0D9488'
+                      icon: faKey
+                      label: CRY
                     modules: null
                   - id: null
                     name: Tesi
@@ -2537,8 +2590,10 @@ paths:
                     teacherName: null
                     previousEditions: []
                     isOverBooking: false
+                    category: I
                     enrollmentRole: student
                     year: '2025'
+                    style: null
                     modules: null
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -3445,6 +3500,7 @@ components:
             $ref: '#/components/schemas/CourseModuleEdition'
           example:
             - id: 244577
+              name: Fisica I
               year: '2021'
         vcOtherCourses:
           type: array
@@ -3454,16 +3510,16 @@ components:
               year:
                 type: string
                 example: '2021'
-              id:
-                type: integer
-                example: 244577
               name:
                 type: string
                 example: Fisica II
+              id:
+                type: integer
+                example: 244577
             required:
               - year
-              - id
               - name
+              - id
           description: Other editions/courses to be included in virtual classrooms
         notifications:
           type: object
@@ -3645,8 +3701,10 @@ components:
         - teacherId
         - teacherName
         - isOverBooking
+        - category
         - enrollmentRole
         - year
+        - style
       properties:
         id:
           type: integer
@@ -3676,6 +3734,12 @@ components:
         isOverBooking:
           type: boolean
           example: false
+        category:
+          type: string
+          description: |-
+            Defines the course type and whether the course page should be opened
+            when no instructor is assigned to the course.
+          example: I
         enrollmentRole:
           allOf:
             - $ref: '#/components/schemas/CourseEnrollmentRole'
@@ -3684,6 +3748,16 @@ components:
         year:
           type: string
           example: '2022'
+        style:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Symbol'
+          nullable: true
+          description: Custom icon, color and label (acronym) chosen by the user for this course. `null` if never set
+          example:
+            color: '#2563EB'
+            icon: faCode
+            label: SDP
       example:
         id: 251008
         name: Programming Module A
@@ -3692,17 +3766,26 @@ components:
         teacherId: 3001
         teacherName: Mario Rossi
         isOverBooking: false
+        category: I
         enrollmentRole: student
         year: '2025'
+        style:
+          color: '#4F46E5'
+          icon: faCode
+          label: PMA
     CourseModuleEdition:
       type: object
       required:
         - year
+        - name
         - id
       properties:
         year:
           type: string
           example: '2021'
+        name:
+          type: string
+          example: Fisica II
         id:
           type: integer
           example: 244577
@@ -3718,6 +3801,7 @@ components:
           description: Previous editions of this course that were part of the student's PSP
           example:
             - id: 244577
+              name: Fisica I
               year: '2021'
       allOf:
         - $ref: '#/components/schemas/CourseModule'
@@ -3774,6 +3858,16 @@ components:
             lectures:
               type: boolean
               example: true
+        style:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Symbol'
+          nullable: true
+          description: Custom icon, color and label (acronym) for the course, `null` to reset it
+          example:
+            color: '#2563EB'
+            icon: faCode
+            label: SDP
     CreateBookingRequest:
       type: object
       required:
@@ -4797,6 +4891,32 @@ components:
           $ref: '#/components/schemas/Device'
       example:
         username: s290683
+    Symbol:
+      type: object
+      properties:
+        label:
+          type: string
+        color:
+          anyOf:
+            - type: string
+            - $ref: '#/components/schemas/ThemeColors'
+        icon:
+          type: string
+      example:
+        color: '#000095'
+        icon: graduation-cap
+    ThemeColors:
+      type: object
+      required:
+        - light
+        - dark
+      properties:
+        light:
+          type: string
+          description: Color used in light mode.
+        dark:
+          type: string
+          description: Color used in dark mode.
     TokenType:
       type: string
       enum:
@@ -4804,14 +4924,15 @@ components:
         - event
     UpdateAssignmentRequest:
       type: object
+      required:
+        - deletedAt
       properties:
-        delivery:
-          type: boolean
-        state:
+        deletedAt:
           type: string
-          enum:
-            - submitted
-            - uploaded
+          format: date-time
+          nullable: true
+          description: Set to a date to withdraw the assignment, `null` to restore it
+          example: '2022-09-03T10:00:00Z'
     UpdateBookingRequest:
       type: object
       required:
